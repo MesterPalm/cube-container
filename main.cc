@@ -1,6 +1,6 @@
 #include "cube.h"
 
 int main(){
-	Cube <char> c;
+	Cube <char, unsigned(3)> c('u','d','l','r','u','d');
 	c.twist();
 }
