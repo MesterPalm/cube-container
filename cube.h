@@ -1,5 +1,6 @@
 #ifndef cube_h
 #define cube_h
+#include <stdlib.h>
 #include <iostream>
 #include <string>
 
@@ -12,6 +13,27 @@ class Cube{
 		Cube() {}
 
 		Cube(T front_fill, T back_fill, T left_fill, T right_fill, T up_fill, T down_fill) {
+			front_face = (T**)malloc(sizeof(T*)*N);
+			back_face = (T**)malloc(sizeof(T*)*N);
+			left_face = (T**)malloc(sizeof(T*)*N);
+			right_face = (T**)malloc(sizeof(T*)*N);
+			up_face = (T**)malloc(sizeof(T*)*N);
+			down_face = (T**)malloc(sizeof(T*)*N);
+		
+			for (int i = 0; i< N; i++){
+				front_face[i] = (T*)malloc(sizeof(T)*N);
+			}for (int i = 0; i< N; i++){
+				back_face[i] = (T*)malloc(sizeof(T)*N);
+			}for (int i = 0; i< N; i++){
+				left_face[i] = (T*)malloc(sizeof(T)*N);
+			}for (int i = 0; i< N; i++){
+				right_face[i] = (T*)malloc(sizeof(T)*N);
+			}for (int i = 0; i< N; i++){
+				up_face[i] = (T*)malloc(sizeof(T)*N);
+			}for (int i = 0; i< N; i++){
+				down_face[i] = (T*)malloc(sizeof(T)*N);
+			}
+
 			for (unsigned col = 0; col < N; col++){
 				for (unsigned row = 0; row < N; row++){
 					front_face[col][row] = front_fill;
@@ -25,8 +47,8 @@ class Cube{
 		}
 
 		//operations
-		void twist(){
-			twist_face(front, 1u, true);
+		void twist(Face f, unsigned nr, bool clockwise){
+			twist_face(f, nr);
 		}
 
 		void print_face(Face f){
@@ -39,36 +61,20 @@ class Cube{
 			}
 		}
 
-		//accessors
+		//getters
 		T get_square(const Face f, const unsigned row, const unsigned col) const{
+			T** selected_face = get_face(f);
+			return selected_face[col][row];
 		}	
+
+		//setters
+		void set_square(const Face f, const unsigned row, const unsigned col, T square){
+			T** selected_face = get_face(f);
+			selected_face[col][row] = square;
+		} 
 
 	private:
-
-		T** get_face(const Face f) {
-			switch(f){
-				case(front):
-					return front_face;
-				break;
-				case(back):
-					return back_face;
-				break;
-				case(left):
-					return left_face;
-				break;
-				case(right):
-					return right_face;
-				break;
-				case(up):
-					return up_face;
-				break;
-				case(down):
-					return down_face;
-				break;		
-			}
-		}	
-
-		void twist_face(Face f, unsigned Nr, bool clockwise) {
+		void twist_face(Face f, unsigned nr) {
 			//transpose face
 			T **face = get_face(f);
 			int new_col, new_row;
@@ -92,15 +98,37 @@ class Cube{
 				face[other_col] = face[col];
 				face[col] = temp;
 			}
-
 		}
+
+		T** get_face(const Face f) {
+			switch(f){
+				case(front):
+					return front_face;
+				break;
+				case(back):
+					return back_face;
+				break;
+				case(left):
+					return left_face;
+				break;
+				case(right):
+					return right_face;
+				break;
+				case(up):
+					return up_face;
+				break;
+				case(down):
+					return down_face;
+				break;		
+			}
+		}	
 		
-		T front_face[N][N];
-		T back_face[N][N];
-		T left_face[N][N];
-		T right_face[N][N];
-		T up_face[N][N];
-		T down_face[N][N];
+		T** front_face;
+		T** back_face;
+		T** left_face;
+		T** right_face;
+		T** up_face;
+		T** down_face;
 };
 
 #endif
