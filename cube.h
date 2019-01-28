@@ -89,11 +89,15 @@ class Cube{
 					face[col][row] = temp_square;
 				}
 			}
+			
+			//std::cout << "---Transposedface----" << std::endl;
+			//print_face(f);
+			//std::cout << "-----------------" << std::endl;
 
 			T *temp;
 			//reverse columns
-			for (unsigned col; col < N/2; col++){
-				unsigned other_col = N-1;
+			for (unsigned col=0; col < N/2; col++){
+				unsigned other_col = N-1-col;
 				temp = face[other_col];
 				face[other_col] = face[col];
 				face[col] = temp;
