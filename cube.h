@@ -6,6 +6,13 @@
 
 enum Face {front, back, left, right, up, down};
 
+const Face front_neighbours[4] = {left, up, right, down};
+const Face back_neighbours[4] = {left, down, right, up};
+const Face left_neighbours[4] = {back, up, right, down};
+const Face right_neighbours[4] = {back, down, right, up};
+const Face up_neighbours[4] = {back, right, front, left};
+const Face down_neighbours[4] = {back, left, front, right};
+
 template <class T, unsigned N> 
 class Cube{
 	public:
@@ -91,9 +98,9 @@ class Cube{
 				}
 			}
 			
-			std::cout << "---Transposedface----" << std::endl;
-			print_face(f);
-			std::cout << "-----------------" << std::endl;
+			//std::cout << "---Transposedface----" << std::endl;
+			//print_face(f);
+			//std::cout << "-----------------" << std::endl;
 
 			T *temp;
 			//reverse columns
@@ -134,6 +141,7 @@ class Cube{
 		T** right_face;
 		T** up_face;
 		T** down_face;
+
 };
 
 #endif
