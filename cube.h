@@ -13,6 +13,9 @@ const Face right_neighbours[4] = {back, down, right, up};
 const Face up_neighbours[4] = {back, right, front, left};
 const Face down_neighbours[4] = {back, left, front, right};
 
+face get_face_neighbour(Face f, unsigned int Nr){
+}
+
 template <class T, unsigned N> 
 class Cube{
 	public:
