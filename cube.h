@@ -80,19 +80,20 @@ class Cube{
 			int new_col, new_row;
 			T temp_square;
 			for (unsigned row = 0; row < (N/2); row++) {
-				for (unsigned col = (N+1)/2; col < N; col++) {
+				for (unsigned col = 1; col < N; col++) {
 					new_col = row;
 					new_row = col;
 
 					temp_square = face[new_col][new_row];
 					face[new_col][new_row] = face[col][row];
 					face[col][row] = temp_square;
+					std::cout << col << ", " << row << " is now " << new_col << ", " << new_row << std::endl;
 				}
 			}
 			
-			//std::cout << "---Transposedface----" << std::endl;
-			//print_face(f);
-			//std::cout << "-----------------" << std::endl;
+			std::cout << "---Transposedface----" << std::endl;
+			print_face(f);
+			std::cout << "-----------------" << std::endl;
 
 			T *temp;
 			//reverse columns
